@@ -2,7 +2,7 @@
   "name": "markdown-definition-list",
   "displayName": "Markdown Definition List <dl>",
   "description": "Adds HTML Definition List <dl> support to VSCode's markdown preview",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "publisher": "saeris",
   "repository": {
@@ -17,22 +17,22 @@
   ],
   "activationEvents": [],
   "main": "./dist/extension.js",
+  "browser": "./dist/extension.js",
   "contributes": {
     "markdown.markdownItPlugins": true
   },
   "scripts": {
     "build": "vsce package",
-    "esbuild-base": "esbuild ./extension.js --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
-    "esbuild": "npm run esbuild-base -- --sourcemap",
-    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+    "bundle": "rolldown ./extension.js -d dist -f cjs -e vscode -s",
+    "watch": "npm run bundle -- -w",
     "release": "vsce publish",
-    "vscode:prepublish": "npm run esbuild"
+    "vscode:prepublish": "npm run bundle"
   },
   "dependencies": {
     "@mdit/plugin-dl": "0.22.1"
   },
   "devDependencies": {
     "@vscode/vsce": "3.6.2",
-    "esbuild": "0.25.11"
+    "rolldown": "^1.0.0-beta.43"
   }
 }
